@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/my-blog/static/css/main.ab880e8c.chunk.css",
+    "main.js": "/my-blog/static/js/main.000d5f15.chunk.js",
+    "main.js.map": "/my-blog/static/js/main.000d5f15.chunk.js.map",
+    "runtime-main.js": "/my-blog/static/js/runtime-main.fe228bd9.js",
+    "runtime-main.js.map": "/my-blog/static/js/runtime-main.fe228bd9.js.map",
+    "static/css/2.ea9b1cc9.chunk.css": "/my-blog/static/css/2.ea9b1cc9.chunk.css",
+    "static/js/2.80e396a0.chunk.js": "/my-blog/static/js/2.80e396a0.chunk.js",
+    "static/js/2.80e396a0.chunk.js.map": "/my-blog/static/js/2.80e396a0.chunk.js.map",
+    "index.html": "/my-blog/index.html",
+    "static/css/2.ea9b1cc9.chunk.css.map": "/my-blog/static/css/2.ea9b1cc9.chunk.css.map",
+    "static/css/main.ab880e8c.chunk.css.map": "/my-blog/static/css/main.ab880e8c.chunk.css.map",
+    "static/js/2.80e396a0.chunk.js.LICENSE.txt": "/my-blog/static/js/2.80e396a0.chunk.js.LICENSE.txt",
+    "static/media/ArticleItemList.module.scss": "/my-blog/static/media/Vector.e12685e4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fe228bd9.js",
+    "static/css/2.ea9b1cc9.chunk.css",
+    "static/js/2.80e396a0.chunk.js",
+    "static/css/main.ab880e8c.chunk.css",
+    "static/js/main.000d5f15.chunk.js"
+  ]
+}
