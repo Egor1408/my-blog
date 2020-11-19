@@ -10,7 +10,7 @@ const Input = ({
 }) => {
   const inputType = type || 'text';
   const htmlFor = `${inputType}-${Math.random()}`;
-  const cls = [classes.input];
+  const cls = [classes.inputWrap];
 
   // if (isInvalid(props)) {
   //   cls.push('invalid');

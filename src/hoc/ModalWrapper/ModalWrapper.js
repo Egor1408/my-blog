@@ -3,7 +3,6 @@ import classes from './ModalWrapper.module.scss';
 
 const ModalWrapper = (props) => {
   const hi = 'hi';
-  console.log(props);
   return (
     <div className={classes.wrapper}>
       <div className={classes.title}>

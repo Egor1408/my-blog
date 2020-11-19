@@ -1,3 +1,6 @@
+$greenColor: #52C41A;
+
+
 .header {
   height: 80px;
   display: flex;
@@ -9,6 +12,10 @@
 
 .logo {
   text-decoration: none;
+}
+.buttons {
+  display: flex;
+  align-items: center;
 }
 
 .sign-in, .sign-up {
@@ -24,12 +31,28 @@
 }
 .sign-up {
   padding: 6px 18px 10px;
-  border: 1px solid #52C41A;
-  color: #52c41a;
+  border: 1px solid $greenColor;
+  color: $greenColor;
   border-radius: 5px;
   margin-left: 30px;
 
   &:hover {
-    color: #52c41a;
+    color: $greenColor;
+  }
+}
+
+.create-article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 31px;
+  border: 1px solid $greenColor;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: $greenColor;
+
+  &:hover {
+    color: $greenColor;
   }
 }

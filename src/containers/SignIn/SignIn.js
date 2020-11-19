@@ -5,27 +5,19 @@ import Checkbox from '../../components/Checkbox/Checkbox';
 import Button from '../../components/Button/Button';
 import ModalLink from '../../components/ModalLink/ModalLink';
 
-const SignUp = () => {
+const SignIn = ({ login }) => {
   const asd = 321;
 
   return (
-    <ModalWrapper title='Create new account'>
+    <ModalWrapper title='Sign In'>
       <form>
-        <Input label="Username" placeholder="Username"/>
         <Input type="email" label="Email address" placeholder="Email address"/>
         <Input type="password" label="Password" placeholder="Password"/>
-        <Input type="password" label="Repeat Password" placeholder="Password"/>
-        <Checkbox
-          name='personInfo'
-          checked={false}
-          label='I agree to the processing of my personal
-  information'
-        />
-        <Button name='createAcc' value='Create' />
-        <ModalLink linkUrl={'/sign-in/'} value='Already have an account?' linkName='Sign In' />
+        <Button name='loginAcc' value='Login' func={login}/>
+        <ModalLink linkUrl={'/sign-up/'} value='Don`t have an account?' linkName='Sign Up' />
       </form>
     </ModalWrapper>
   )
 }
 
-export default SignUp;
+export default SignIn;
