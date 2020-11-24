@@ -4,9 +4,6 @@ export default class ApiService {
 
   async getRequest(url = null, obj = null) {
     const res = await fetch(`${this._baseURL}${url}`, obj);
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, received ${res.status} `);
-    }
     const responce = await res.json();
     return responce;
   }
@@ -19,5 +16,44 @@ export default class ApiService {
   getArticle = async (url) => {
     const article = await this.getRequest(url);
     return article;
+  }
+
+  loginUser = async (data) => {
+    const res = await this.getRequest('users/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res;
+  }
+
+  createNewAcc = async (data) => {
+    const res = await this.getRequest('users', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res;
+  }
+
+  updateUser = async (data, token) => {
+    const res = await this.getRequest('user', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
+
+  getUser = async () => {
+    const user = await this.getRequest('user');
+    return user;
   }
 }

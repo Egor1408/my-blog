@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import SignUp from '../SignUp/SignUp';
@@ -7,30 +7,29 @@ import Profile from '../Profile/Profile';
 import ArticlesList from '../ArticlesList/ArticlesList';
 import Article from '../Article/Article';
 import classes from './App.module.scss';
+import { useUser } from '../../Context/UserContext';
 
 const App = () => {
-  const [loginUser, setLoginUser] = useState(false);
+  const { updateUser } = useUser();
 
-  const login = () => {
-    setLoginUser(true);
-  }
-
-  const logOut = () => {
-    setLoginUser(false);
-  }
-  console.log(loginUser);
+  useEffect(() => {
+    if (sessionStorage.getItem('session')) {
+      const { user } = JSON.parse(sessionStorage.getItem('session'));
+      updateUser(user);
+    }
+  }, []);
 
   return (
     <Router>
       <div className={classes.wrapper}>
-        <Header isLogin={loginUser} logOut={logOut}/>
+        <Header />
         <Route path='/' exact component={ArticlesList}/>
         <Route path='/articles' exact component={ArticlesList}/>
         <Route path='/my-blog' exact component={ArticlesList}/>
         <Route path='/articles/:slug' component={Article}/>
         <Route path='/sign-up' component={SignUp}/>
-        <Route path='/sign-in' render={() => <SignIn login={login}/>}/>
-        <Route path='/profile' render={() => <Profile loginUser={loginUser}/>}/>
+        <Route path='/sign-in' component ={SignIn}/>
+        <Route path='/profile' component={Profile}/>
       </div>
     </Router>
   )

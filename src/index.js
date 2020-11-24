@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App/App';
+import { UserProvider } from './Context/UserContext';
 import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const app = <UserProvider>
+              <App />
+            </UserProvider>
+
+ReactDOM.render(app, document.getElementById('root'));

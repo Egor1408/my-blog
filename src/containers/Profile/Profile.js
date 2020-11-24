@@ -1,29 +1,85 @@
-import React from 'react';
+/* eslint-disable array-callback-return */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-shadow */
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
 import ModalWrapper from '../../hoc/ModalWrapper/ModalWrapper';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
-import ModalLink from '../../components/ModalLink/ModalLink';
+import UsernameInput from '../../components/UsernameInput/UsernameInput';
+import EmailInput from '../../components/EmailInput/EmailInput';
+import PasswordInput from '../../components/PasswordInput/PasswordInput';
+import AvatarInput from '../../components/AvatarInput/AvatarInput';
+import InputSubmit from '../../components/InputSubmit/InputSubmit';
+import ApiService from '../../ApiServices/ApiService';
+import { useUser } from '../../Context/UserContext';
+import classes from './Profile.module.scss';
 
-const Profile = ({ loginUser }) => {
-  const asd = 321;
+const Profile = () => {
+  const apiService = new ApiService();
+  const methods = useForm();
+  const { user, updateUser } = useUser();
+  const [userNameErr, setUserNameErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
 
-  if (loginUser) {
+  const filterUserData = (data) => {
+    const obj = data.user
+    const newObj = { user: {} };
+    for (const i in obj) {
+      if (obj[i].trim() !== '') {
+        newObj.user[i] = obj[i];
+      }
+    }
+    return newObj;
+  }
+  const updateSession = (dataUser) => {
+    const session = {
+      user: dataUser,
+    };
+    sessionStorage.setItem('session', JSON.stringify(session));
+  };
+
+  const onSubmit = (data, e) => {
+    const resData = { user: data };
+    apiService.updateUser(filterUserData(resData), user.token)
+      .then((request) => {
+        if (request.errors) {
+          const typeRequest = Object.keys(request.errors);
+          typeRequest.map((err) => {
+            if (err === 'email') {
+              setEmailErr(true)
+            }
+            if (err === 'username') {
+              setUserNameErr(true)
+            }
+          })
+        } else {
+          updateUser(request.user);
+          updateSession(request.user);
+        }
+      })
+    e.target.reset();
+  }
+
+  if (user) {
     return (
-      <ModalWrapper title='Edit Profile'>
-        <form>
-          <Input label="Username" placeholder="Eguar42"/>
-          <Input type="email" label="Email address" placeholder="egor1111@mail.ru"/>
-          <Input type='password' label='New password' placeholder='New password'/>
-          <Input label='Avatar image (url)' placeholder='Avatar' />
-          <Button name='editProfile' value='Save'/>
-          <ModalLink linkUrl={'/sign-up/'} value='Don`t have an account?' linkName='Sign Up' />
-        </form>
-      </ModalWrapper>
+      <FormProvider {...methods}>
+        <ModalWrapper title='Edit Profile'>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {userNameErr && <p className={classes.error}>Этот username уже занят</p>}
+            <UsernameInput />
+            {emailErr && <p className={classes.error}>Такой email уже зарегестрирован</p>}
+            <EmailInput />
+            <PasswordInput modal={'profile'}/>
+            <AvatarInput />
+            <InputSubmit value='Save'/>
+          </form>
+        </ModalWrapper>
+      </FormProvider>
     )
   }
   return (
-    <Redirect to='/articles'/>
+    <Redirect to='/sign-in'/>
   )
 }
 

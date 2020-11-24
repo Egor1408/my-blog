@@ -8,6 +8,7 @@
 .inputWrap {
   display: flex;
   flex-direction: column;
+  margin-bottom: 12px;
 }
 .label {
   font-family: Roboto;
@@ -24,7 +25,6 @@
   width: 320px;
   height: 40px;
   padding: 8px 12px;
-  margin-bottom: 12px;
   outline: none;
 
   &:focus {
@@ -43,4 +43,12 @@
     line-height: 24px;
     color: #BFBFBF;
   }
+}
+
+.validError {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 22px;
+  color:#F5222D;
+  margin: 0;
 }

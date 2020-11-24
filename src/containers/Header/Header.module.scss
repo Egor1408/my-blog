@@ -51,8 +51,27 @@ $greenColor: #52C41A;
   box-sizing: border-box;
   border-radius: 5px;
   color: $greenColor;
+  margin-right: 26px;
 
   &:hover {
     color: $greenColor;
+  }
+}
+
+.profile {
+  margin-right: 27px;
+  
+  & span {
+    font-family: Inter;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+    margin-right: 13px;
+  }
+  .avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    
   }
 }
