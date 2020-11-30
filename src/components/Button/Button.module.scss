@@ -1,12 +1,18 @@
+$redColor: #F5222D;
+
 .buttonWrap {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Inter;
+
+  & button:hover {
+    cursor: pointer;
+  }
 }
 .loginOut {
   width: 109px;
   height: 51px;
-  border: none;
   border: 1px solid rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   font-family: Roboto;
@@ -16,16 +22,37 @@
   outline: none;
 }
 
-.loginAcc, .editProfile, .createAcc {
-  width: 319px;
+
+.delTag {
+  width: 118px;
   height: 40px;
-  border: none;
-  background: #1890FF;
+  padding: 8px 16px;
+  border: 1px solid $redColor;
   border-radius: 4px;
-  font-family: Roboto;
-  font-size: 16px;
-  line-height: 24px;
-  color: #fff;
-  margin-bottom: 8px;
+  color: $redColor;
+  font-size: 14px;
+  line-height: 22px;
+  outline: none;  
+}
+
+.delArticle {
+  width: 78px;
+  height: 31px;
+  padding: 6px 16px;
+  border: 1px solid $redColor;
+  border-radius: 5px;
+  color: $redColor;
+  outline: none;
+}
+.addTag {
+  position: absolute;
+  bottom: 0px;
+  right: -154px;
+  padding: 8px 16px;
+  border: 1px solid #1890FF;
+  border-radius: 4px;
+  color: #1890ff;
+  width: 136px;
+  height: 40px;
   outline: none;
 }

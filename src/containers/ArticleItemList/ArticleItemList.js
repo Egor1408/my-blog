@@ -15,7 +15,7 @@ const ArticleItemList = ({ data, clsForTags }) => {
   const createdDate = format(new Date(createdAt), 'MMMM d, Y')
   const tags = tagList.length ? <div className={cls.join(' ')}><ul>{tagList.map((item, i) => <li key={i}><span>{item}</span></li>)}</ul></div> : null;
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrap}>
       <div className={classes.content}>
         <div className={classes.header}>
           <div className={classes.title}>

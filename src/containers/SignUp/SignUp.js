@@ -8,6 +8,7 @@ import EmailInput from '../../components/EmailInput/EmailInput';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import RepeatPassInput from '../../components/RepeatPassInput/RepeatPassInput';
 import Checkbox from '../../components/Checkbox/Checkbox';
+import Button from '../../components/Button/Button';
 import InputSubmit from '../../components/InputSubmit/InputSubmit';
 import ModalLink from '../../components/ModalLink/ModalLink';
 import ApiService from '../../ApiServices/ApiService';
@@ -75,6 +76,7 @@ const SignUp = () => {
             label='I agree to the processing of my personal
     information'
           />
+
           <InputSubmit value='Create'/>
           <ModalLink linkUrl={'/sign-in/'} value='Already have an account?' linkName='Sign In' />
         </form>

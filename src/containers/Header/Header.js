@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import classes from './Header.module.scss';
@@ -12,7 +12,7 @@ const Header = () => {
   }
 
   const loginTrue = <div className={classes.buttons}>
-                      <Link to='/create-article/' className={classes['create-article']}>Create article</Link>
+                      <Link to='/new-article' className={classes['create-article']}>Create article</Link>
                       <Link to='/profile/' className={classes.profile}>
                         <span>{user && user.username}</span>
                         <img className={classes.avatar} src='https://static.productionready.io/images/smiley-cyrus.jpg' />

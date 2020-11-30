@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 import classes from './Button.module.scss';
 
@@ -8,7 +9,7 @@ const Button = ({
     <button name={name}
       className={classes[name]}
       onClick={(e) => {
-        e.preventDefault();
+        e.preventDefault()
         func()
       }}
     >{value}</button>

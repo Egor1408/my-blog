@@ -36,7 +36,7 @@ const ArticlesList = () => {
   }
   if (!loading) {
     return (
-      <div className={classes.wrapper}>
+      <div className={classes.wrap}>
         <ul className={classes.articleList}>
           {articles.map((item, i) => (
             <li key={i}><ArticleItemList data = {item}/></li>

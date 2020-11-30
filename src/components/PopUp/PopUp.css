@@ -1,0 +1,20 @@
+.delArticle {
+  width: 78px;
+  height: 31px;
+  padding: 6px 16px;
+  border: 1px solid #f5222d;
+  border-radius: 5px;
+  color: #f5222d;
+  outline: none;
+}
+.ant-popconfim {
+  padding: 0px;
+}
+.ant-popover-inner {
+  width: 240px;
+  height: 104px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+}

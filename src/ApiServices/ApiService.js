@@ -56,4 +56,27 @@ export default class ApiService {
     const user = await this.getRequest('user');
     return user;
   }
+
+  createNewArticle = async (data, token) => {
+    const res = await this.getRequest('articles', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
+
+  deleteArticle = async (slug, token) => {
+    const res = await this.getRequest(`articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
 }
