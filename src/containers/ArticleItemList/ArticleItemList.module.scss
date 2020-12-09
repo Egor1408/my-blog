@@ -22,6 +22,7 @@
       text-decoration: none;
 
       & h5 {
+        margin: 0;
         font-size: 20px;
         line-height: 28px;
         color: #1890FF;
@@ -34,13 +35,27 @@
     display: flex;
     align-items: center;
     margin-left: 13px;
-
+    &:hover {
+      cursor: default; 
+    }
+        
     .heart {
       width: 16px;
       height: 15px;
-      background: url('../../images/Vector.svg');
+      outline: none;
+      border: none;
+      background: url('../../images/favoritesHeart.svg')  50%;
+      &.active{
+        background: url('../../images/activeFavorites.svg')  50%;
+      }
+      
+      &:hover {
+        cursor: pointer;
+      }
+      &.disabled:hover {
+        cursor: default;
+      }
     }
-
     & span {
       margin-left: 5px;
       font-size: 12px;

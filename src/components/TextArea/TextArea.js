@@ -2,7 +2,9 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import classes from './TextArea.module.scss';
 
-const TextInput = ({ name, label, placeholder }) => {
+const TextInput = ({
+  name, label, placeholder, value,
+}) => {
   const htmlFor = `${name}-${Math.random()}`;
   const { register, errors } = useFormContext();
 
@@ -15,6 +17,7 @@ const TextInput = ({ name, label, placeholder }) => {
         name={name}
         id={htmlFor}
         placeholder={placeholder}
+        defaultValue={value}
         ref={register({
           required: true,
         })}

@@ -4,7 +4,7 @@ import classes from './AvatarInput.module.scss';
 
 const AvatarInput = () => {
   const htmlFor = `username-${Math.random()}`;
-  const { register, errors } = useFormContext();
+  const { register } = useFormContext();
 
   return (
     <div className = {classes.inputWrap}>
@@ -17,7 +17,6 @@ const AvatarInput = () => {
         placeholder={'Avatar image'}
         ref={register()}
       />
-      {/* {errors.username?.type === 'required' && <p className={classes.validError}>Обязательное поле</p>} */}
     </div>
   );
 }

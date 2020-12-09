@@ -8,13 +8,13 @@ export default class ApiService {
     return responce;
   }
 
-  getArticleList = async (url) => {
-    const articleList = await this.getRequest(url);
+  getArticleList = async (url, header) => {
+    const articleList = await this.getRequest(url, header);
     return articleList;
   }
 
-  getArticle = async (url) => {
-    const article = await this.getRequest(url);
+  getArticle = async (url, header) => {
+    const article = await this.getRequest(url, header);
     return article;
   }
 
@@ -69,8 +69,42 @@ export default class ApiService {
     return res;
   }
 
+  updateArticle = async (data, token, slug) => {
+    const res = await this.getRequest(`articles/${slug}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
+
   deleteArticle = async (slug, token) => {
     const res = await this.getRequest(`articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
+
+  favoriteArticle = async (slug, token) => {
+    const res = await this.getRequest(`articles/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    });
+    return res;
+  }
+
+  unfavoriteArticle = async (slug, token) => {
+    const res = await this.getRequest(`articles/${slug}/favorite`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -15,13 +15,19 @@ const Article = (props) => {
   const { user } = useUser();
   const apiService = new ApiService();
   const [article, setArticle] = useState({});
-  const [del, setDel] = useState(false);
   const [isMyArticle, setIsMyArticle] = useState(false);
 
   useEffect(() => {
-    apiService.getArticle(`articles/${slug}/`)
-      .then((data) => setArticle(data.article))
-  }, [])
+    const obj = {};
+    if (user) {
+      obj.headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${user.token}`,
+      }
+      apiService.getArticle(`articles/${slug}/`, obj)
+        .then((data) => setArticle(data.article))
+    }
+  }, [user])
   useEffect(() => {
     if (user && article.author) {
       setIsMyArticle(user.username === article.author.username)

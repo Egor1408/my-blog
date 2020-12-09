@@ -2,10 +2,11 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import classes from './TextInput.module.scss';
 
-const TextInput = ({ name, label, placeholder }) => {
+const TextInput = ({
+  name, label, placeholder, value,
+}) => {
   const htmlFor = `${name}-${Math.random()}`;
   const { register, errors } = useFormContext();
-
   return (
     <div className = {classes.inputWrap}>
       <label className={classes.label} htmlFor={htmlFor}>{label}</label>
@@ -14,6 +15,7 @@ const TextInput = ({ name, label, placeholder }) => {
         type={'text'}
         name={name}
         id={htmlFor}
+        defaultValue={value}
         placeholder={placeholder}
         ref={register({
           required: true,

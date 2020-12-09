@@ -1,22 +1,21 @@
 /* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Redirect } from 'react-router-dom';
 import ModalWrapper from '../../hoc/ModalWrapper/ModalWrapper';
 import UsernameInput from '../../components/UsernameInput/UsernameInput';
 import EmailInput from '../../components/EmailInput/EmailInput';
 import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import RepeatPassInput from '../../components/RepeatPassInput/RepeatPassInput';
 import Checkbox from '../../components/Checkbox/Checkbox';
-import Button from '../../components/Button/Button';
 import InputSubmit from '../../components/InputSubmit/InputSubmit';
 import ModalLink from '../../components/ModalLink/ModalLink';
 import ApiService from '../../ApiServices/ApiService';
 import { useUser } from '../../Context/UserContext';
 import classes from './SignUp.module.scss';
 
-const SignUp = () => {
+const SignUp = (props) => {
   const apiService = new ApiService();
+  const { history } = props;
   const [curPass, setCurPass] = useState('');
   const [userNameErr, setUserNameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
@@ -38,6 +37,8 @@ const SignUp = () => {
               setUserNameErr(true)
             }
           })
+        } else {
+          history.push('/sign-in')
         }
       })
     e.target.reset({
@@ -53,11 +54,6 @@ const SignUp = () => {
     useCheckboxState((prev) => !prev);
   }
 
-  if (user) {
-    return (
-      <Redirect to='/Articles'/>
-    )
-  }
   return (
     <FormProvider {...methods}>
       <ModalWrapper title='Create new account'>

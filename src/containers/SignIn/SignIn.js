@@ -23,7 +23,7 @@ const SignIn = () => {
     sessionStorage.setItem('session', JSON.stringify(session));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     const resData = { user: data };
     apiService.loginUser(resData)
       .then((request) => {
@@ -35,9 +35,9 @@ const SignIn = () => {
           setError(true)
         }
       });
-    // e.target.reset({
-    //   errors: true,
-    // });
+    e.target.reset({
+      errors: true,
+    });
   }
 
   if (user) {
