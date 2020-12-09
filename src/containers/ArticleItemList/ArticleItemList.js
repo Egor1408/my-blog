@@ -52,7 +52,7 @@ const ArticleItemList = ({ data, clsForTags }) => {
       <div className={classes.content}>
         <div className={classes.header}>
           <div className={classes.title}>
-            <Link to={`/articles/${slug}`}><h5>{title}</h5></Link>
+            <Link to={`/my-blog/articles/${slug}`}><h5>{title}</h5></Link>
           </div>
           <div className={classes.favorites}>
             <button className={cn(classes.heart, { [classes.active]: like.favorited }, { [classes.disabled]: !user })}

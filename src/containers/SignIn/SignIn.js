@@ -42,7 +42,7 @@ const SignIn = () => {
 
   if (user) {
     return (
-      <Redirect to='/Articles'/>
+      <Redirect to='/my-blog/Articles'/>
     )
   }
   return (

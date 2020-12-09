@@ -38,7 +38,7 @@ const SignUp = (props) => {
             }
           })
         } else {
-          history.push('/sign-in')
+          history.push('/my-blog/sign-in')
         }
       })
     e.target.reset({
@@ -74,7 +74,7 @@ const SignUp = (props) => {
           />
 
           <InputSubmit value='Create'/>
-          <ModalLink linkUrl={'/sign-in/'} value='Already have an account?' linkName='Sign In' />
+          <ModalLink linkUrl={'/my-blog/sign-in/'} value='Already have an account?' linkName='Sign In' />
         </form>
       </ModalWrapper>
     </FormProvider>

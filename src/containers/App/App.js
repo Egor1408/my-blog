@@ -24,15 +24,15 @@ const App = () => {
     <Router>
       <div className={classes.wrapper}>
         <Header />
-        <Route path='/' exact component={ArticlesList}/>
-        <Route path='/articles' exact component={ArticlesList}/>
         <Route path='/my-blog' exact component={ArticlesList}/>
-        <Route path='/articles/:slug' exact component={Article}/>
-        <Route path='/sign-up' component={SignUp}/>
-        <Route path='/sign-in' component ={SignIn}/>
-        <Route path='/profile' component={Profile}/>
-        <Route path='/new-article' component={CreateArticle}/>
-        <Route path='/articles/:slug/edit' component={CreateArticle}/>
+        <Route path='/my-blog/articles' exact component={ArticlesList}/>
+        {/* <Route path='/my-blog' exact component={ArticlesList}/> */}
+        <Route path='/my-blog/articles/:slug' exact component={Article}/>
+        <Route path='/my-blog/sign-up' component={SignUp}/>
+        <Route path='/my-blog/sign-in' component ={SignIn}/>
+        <Route path='/my-blog/profile' component={Profile}/>
+        <Route path='/my-blog/new-article' component={CreateArticle}/>
+        <Route path='/my-blog/articles/:slug/edit' component={CreateArticle}/>
       </div>
     </Router>
   )

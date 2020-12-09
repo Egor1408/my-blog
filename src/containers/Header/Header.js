@@ -17,8 +17,8 @@ const Header = () => {
   }
 
   const loginTrue = <div className={classes.buttons}>
-                      <Link to='/new-article' className={classes['create-article']}>Create article</Link>
-                      <Link to='/profile/' className={classes.profile}>
+                      <Link to='/my-blog/new-article' className={classes['create-article']}>Create article</Link>
+                      <Link to='/my-blog/profile/' className={classes.profile}>
                         <span>{user && user.username}</span>
                         <img className={classes.avatar} src={avatarURL} />
 
@@ -27,14 +27,14 @@ const Header = () => {
                     </div>
 
   const loginFalse = <div className={classes.buttons}>
-                      <Link to='/sign-in/' className={classes['sign-in']}>Sign In</Link>
-                      <Link to='/sign-up/' className={classes['sign-up']}>Sign Up</Link>
+                      <Link to='/my-blog/sign-in/' className={classes['sign-in']}>Sign In</Link>
+                      <Link to='/my-blog/sign-up/' className={classes['sign-up']}>Sign Up</Link>
                     </div>
 
   const buttonsGroup = user ? loginTrue : loginFalse;
   return (
     <div className={classes.header}>
-      <Link to='/Articles/' className={classes.logo}>Realworld Blog</Link>
+      <Link to='/my-blog/Articles/' className={classes.logo}>Realworld Blog</Link>
       {buttonsGroup}
     </div>
   )

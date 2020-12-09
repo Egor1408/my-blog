@@ -26,6 +26,9 @@ const Article = (props) => {
       }
       apiService.getArticle(`articles/${slug}/`, obj)
         .then((data) => setArticle(data.article))
+    } else {
+      apiService.getArticle(`articles/${slug}/`)
+        .then((data) => setArticle(data.article))
     }
   }, [user])
   useEffect(() => {
@@ -36,7 +39,7 @@ const Article = (props) => {
 
   const delArticle = (articleSlug, userToken) => {
     apiService.deleteArticle(articleSlug, userToken)
-    history.push('/')
+    history.push('/my-blog/')
   }
 
   if (article && article.author) {
@@ -45,7 +48,7 @@ const Article = (props) => {
           <ArticleItemList data = {article} clsForTags={true} />
           {isMyArticle && <div className={classes.buttons}>
             <PopUp func = {() => { delArticle(slug, user.token) }}/>
-            <Link to={`/articles/${slug}/edit`} className={classes['edit-article']}>Edit</Link>
+            <Link to={`/my-blog/articles/${slug}/edit`} className={classes['edit-article']}>Edit</Link>
           </div>}
           <div className={classes.articleBody}>
             <ReactMarkDown>{article.body}</ReactMarkDown>

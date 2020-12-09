@@ -79,7 +79,7 @@ const Profile = () => {
     )
   }
   return (
-    <Redirect to='/sign-in'/>
+    <Redirect to='/my-blog/sign-in'/>
   )
 }
 

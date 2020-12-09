@@ -36,7 +36,7 @@ const CreateArticle = (props) => {
     const resData = { article: data };
     submitFunc(resData, user.token, article.slug)
     e.target.reset();
-    history.push('/')
+    history.push('/my-blog/')
   };
 
   if (user) {
@@ -64,7 +64,7 @@ const CreateArticle = (props) => {
     )
   }
   return (
-    <Redirect to='/sign-in'/>
+    <Redirect to='/my-blog/sign-in'/>
   )
 }
 
