@@ -1,4 +1,5 @@
 $greenColor: #52C41A;
+$blueColor: #1890FF;
 
 
 .header {
@@ -52,10 +53,28 @@ $greenColor: #52C41A;
   box-sizing: border-box;
   border-radius: 5px;
   color: $greenColor;
-  margin-right: 26px;
+  margin-right: 20px;
 
   &:hover {
     color: $greenColor;
+  }
+}
+
+.my-articles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  min-width: 112px;
+  height: 31px;
+  border: 1px solid $blueColor;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: $blueColor;
+  margin-right: 20px;
+
+  &:hover {
+    color: $blueColor;
   }
 }
 

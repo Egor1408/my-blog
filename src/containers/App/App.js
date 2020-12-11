@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Redirect, Route, Switch,
+} from 'react-router-dom';
 import Header from '../Header/Header';
 import SignUp from '../SignUp/SignUp';
 import SignIn from '../SignIn/SignIn';
@@ -24,15 +26,18 @@ const App = () => {
     <Router>
       <div className={classes.wrapper}>
         <Header />
-        <Route path='/my-blog' exact component={ArticlesList}/>
-        <Route path='/my-blog/articles' exact component={ArticlesList}/>
-        {/* <Route path='/my-blog' exact component={ArticlesList}/> */}
-        <Route path='/my-blog/articles/:slug' exact component={Article}/>
-        <Route path='/my-blog/sign-up' component={SignUp}/>
-        <Route path='/my-blog/sign-in' component ={SignIn}/>
-        <Route path='/my-blog/profile' component={Profile}/>
-        <Route path='/my-blog/new-article' component={CreateArticle}/>
-        <Route path='/my-blog/articles/:slug/edit' component={CreateArticle}/>
+        <Switch>
+          <Route path='/my-blog/' exact component={ArticlesList}/>
+          <Route path='/my-blog/articles' exact component={ArticlesList}/>
+          <Route path='/my-blog/my-articles/' exact component={ArticlesList}/>
+          <Route path='/my-blog/articles/:slug' exact component={Article}/>
+          <Route path='/my-blog/sign-up' component={SignUp}/>
+          <Route path='/my-blog/sign-in' component ={SignIn}/>
+          <Route path='/my-blog/profile' component={Profile}/>
+          <Route path='/my-blog/new-article' component={CreateArticle}/>
+          <Route path='/my-blog/articles/:slug/edit' component={CreateArticle}/>
+          <Redirect to ='/my-blog/'/>
+        </Switch>
       </div>
     </Router>
   )

@@ -14,6 +14,7 @@ const SignIn = () => {
   const apiService = new ApiService();
   const methods = useForm();
   const { user, updateUser } = useUser();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const initSession = (dataUser) => {
@@ -23,7 +24,8 @@ const SignIn = () => {
     sessionStorage.setItem('session', JSON.stringify(session));
   };
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data) => {
+    setLoading(true);
     const resData = { user: data };
     apiService.loginUser(resData)
       .then((request) => {
@@ -34,25 +36,28 @@ const SignIn = () => {
         } else {
           setError(true)
         }
+      })
+      .then(() => {
+        setLoading(false);
       });
-    e.target.reset({
-      errors: true,
-    });
   }
 
+  const inputHandler = () => {
+    setError(false)
+  }
   if (user) {
     return (
-      <Redirect to='/my-blog/Articles'/>
+      <Redirect to='/my-blog/articles/'/>
     )
   }
   return (
     <FormProvider {...methods}>
       <ModalWrapper title='Sign In'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <EmailInput />
-          <PasswordInput />
+          <EmailInput func = {inputHandler}/>
+          <PasswordInput func = {inputHandler}/>
           {error && <p className={classes.error}>Email и пароль не совпадают</p>}
-          <InputSubmit value='Login'/>
+          <InputSubmit value='Login' loading={loading} loadingValue='Loading...'/>
           <ModalLink linkUrl={'/sign-up/'} value='Don`t have an account?' linkName='Sign Up' />
         </form>
       </ModalWrapper>

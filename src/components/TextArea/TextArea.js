@@ -22,7 +22,7 @@ const TextInput = ({
           required: true,
         })}
       ></textarea>
-      {errors.username?.type === 'required' && <p className={classes.validError}>Обязательное поле</p>}
+      {errors[name]?.type === 'required' && <p className={classes.validError}>Обязательное поле</p>}
     </div>
   );
 }

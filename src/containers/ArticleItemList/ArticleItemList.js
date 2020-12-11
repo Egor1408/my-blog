@@ -39,13 +39,13 @@ const ArticleItemList = ({ data, clsForTags }) => {
 
   const createdDate = format(new Date(createdAt), 'MMMM d, Y');
 
-  const tags = tagList.length && <div className={cn(classes.tags, { [classes.article]: clsForTags })}>
+  const tags = tagList.length ? <div className={cn(classes.tags, { [classes.article]: clsForTags })}>
                                   <ul>{tagList.map((item, i) => (
                                     <li key={i}>
                                       <span>{item}</span>
                                     </li>))}
                                   </ul>
-                                </div>;
+                                </div> : null;
 
   return (
     <div className={cn(classes.wrap)}>

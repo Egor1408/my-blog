@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import classes from './Header.module.scss';
 import { useUser } from '../../Context/UserContext';
 
-const Header = () => {
+const Header = (props) => {
+  const { history } = props;
   const { user, updateUser } = useUser();
   let avatarURL = 'https://static.productionready.io/images/smiley-cyrus.jpg';
   if (user && user.image) {
@@ -13,11 +14,12 @@ const Header = () => {
 
   const clearUser = () => {
     updateUser(null);
-    sessionStorage.clear()
+    sessionStorage.clear();
   }
 
   const loginTrue = <div className={classes.buttons}>
                       <Link to='/my-blog/new-article' className={classes['create-article']}>Create article</Link>
+                      <Link to='/my-blog/my-articles/' className={classes['my-articles']}>My articles</Link>
                       <Link to='/my-blog/profile/' className={classes.profile}>
                         <span>{user && user.username}</span>
                         <img className={classes.avatar} src={avatarURL} />
@@ -34,7 +36,7 @@ const Header = () => {
   const buttonsGroup = user ? loginTrue : loginFalse;
   return (
     <div className={classes.header}>
-      <Link to='/my-blog/Articles/' className={classes.logo}>Realworld Blog</Link>
+      <Link to='/my-blog/articles/' className={classes.logo}>Realworld Blog</Link>
       {buttonsGroup}
     </div>
   )

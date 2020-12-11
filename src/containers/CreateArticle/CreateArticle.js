@@ -14,36 +14,50 @@ const CreateArticle = (props) => {
   const { history, match } = props;
   const methods = useForm();
   const [article, setArticle] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [tagList, setTagList] = useState([]);
+  const [title, setTitle] = useState('Create new article');
+  const [submitButtonTitle, setSubmitButtonTitle] = useState('Send')
   const { user } = useUser();
-
   const submitFunc = (articleData, userToken, articleSlug = null) => {
     if (articleSlug) {
       apiService.updateArticle(articleData, userToken, articleSlug)
+        .then(() => {
+          history.push('/my-blog/articles/')
+        })
     } else {
       apiService.createNewArticle(articleData, userToken)
+        .then(() => {
+          history.push('/my-blog/articles/')
+        })
     }
   }
 
   useEffect(() => {
     if (match.params.slug) {
+      setTitle('Edit article')
+      setSubmitButtonTitle('Edit')
       apiService.getArticle(`articles/${match.params.slug}/`)
         .then((data) => {
           setArticle(data.article)
+          setTagList(data.article.tagList)
         })
     }
   }, [])
-  const onSubmit = (data, e) => {
+  const onSubmit = (data) => {
+    data.tagList = tagList;
     const resData = { article: data };
-    submitFunc(resData, user.token, article.slug)
-    e.target.reset();
-    history.push('/my-blog/')
+    setLoading(true);
+    submitFunc(resData, user.token, article.slug);
   };
-
+  const handleTagList = (tag) => {
+    setTagList((prev) => [...prev, tag])
+  }
   if (user) {
     return (
       <FormProvider {...methods}>
         <div className={classes.wrap}>
-          <h2>Create new article</h2>
+          <h2>{title}</h2>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className={classes.title}>
               <TextInput name='title' label='Title' placeholder='title' value={article.title} />
@@ -55,9 +69,9 @@ const CreateArticle = (props) => {
               <TextArea name='body' label='Text' placeholder='text' value={article.body} />
             </div>
             <div className={classes.tags}>
-              <TagsInput placeholder='tags' tagList={article.tagList}/>
+              <TagsInput tagList={article.tagList} handleTagList={handleTagList}/>
             </div>
-            <InputSubmit value='Send'/>
+            <InputSubmit value={submitButtonTitle} loading={loading} loadingValue='Loading...'/>
           </form>
         </div>
       </FormProvider>

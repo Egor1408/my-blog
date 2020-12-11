@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import classes from './PasswordInput.module.scss';
 
-const PasswordInput = ({ modal, watchPass }) => {
+const PasswordInput = ({ modal, watchPass, func = null }) => {
   const htmlFor = `password-${Math.random()}`;
   const { register, errors } = useFormContext();
 
@@ -29,10 +29,12 @@ const PasswordInput = ({ modal, watchPass }) => {
         name='password'
         id={htmlFor}
         placeholder={'Password'}
+        onChange={() => func('password')}
         ref={register(validRules)}
       />
       {errors.password?.type === 'required' && <p className={classes.validError}>Обязательное поле</p>}
-      {(errors.password?.type === 'minLength' && 'maxLength') && <p className={classes.validError}>от 8 до 40 символов</p>}
+      {errors.password?.type === 'minLength' && <p className={classes.validError}>от 8 до 40 символов</p>}
+      {errors.password?.type === 'maxLength' && <p className={classes.validError}>от 8 до 40 символов</p>}
 
     </div>
   );

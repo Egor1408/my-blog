@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import classes from './EmailInput.module.scss';
 
-const EmailInput = () => {
+const EmailInput = ({ email = null, func = null }) => {
   const htmlFor = `email-${Math.random()}`;
   const { register, errors } = useFormContext();
 
@@ -13,8 +13,10 @@ const EmailInput = () => {
         className={classes.input}
         type={'text'}
         name='email'
+        defaultValue={email}
         id={htmlFor}
         placeholder={'Email address'}
+        onChange={() => func('email')}
         ref={register({
           required: true,
           pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,

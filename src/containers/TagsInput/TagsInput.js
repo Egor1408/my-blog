@@ -1,56 +1,83 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
+import cn from 'classnames'
 import { useFormContext } from 'react-hook-form';
 import Button from '../../components/Button/Button';
 import classes from './TagsInput.module.scss';
 
-const TagsInput = ({ placeholder, tagList = null }) => {
+const TagsInput = ({ handleTagList, tagList = null }) => {
   const { register } = useFormContext();
-  const [tagsId, setTagsId] = useState([0]);
+  const [tagsList, setTagsList] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [tagError, setTagError] = useState(false);
+  const [checkTag, setCheckTag] = useState(null);
+  const [placeholder, setPlaceholder] = useState('add tag')
   useEffect(() => {
     if (tagList) {
-      const newIdList = tagList.map((item, i) => i);
-      setTagsId(newIdList)
+      setTagsList(tagList)
     }
   }, [tagList])
+  const inputHandler = (e) => {
+    setInputValue(e.target.value);
+    setPlaceholder('add tag')
+    setTagError(false)
+  }
+  const addTagHandler = () => {
+    if (!inputValue.trim()) {
+      setTagError(true)
+      setInputValue('')
+      setPlaceholder('тег не может быть пустой строкой')
+    } else if (checkTagList(inputValue)) {
+      setCheckTag(inputValue);
+      setInputValue('')
+      const timeout = window.setTimeout(() => {
+        setCheckTag(null);
+        window.clearTimeout(timeout);
+      }, 2000);
+    } else {
+      addTag();
+    }
+  }
+  const checkTagList = (tag) => tagsList.some((item) => item === tag);
+
   const addTag = () => {
-    setTagsId((prev) => {
-      const nextId = prev[prev.length - 1] + 1;
-      return [...prev, nextId]
-    });
+    handleTagList(inputValue)
+    setTagsList((prev) => (
+      [...prev, inputValue]
+    ))
+    setInputValue('')
   }
-
   const delTag = (id) => {
-    const filteredTags = tagsId.filter((item) => id !== item);
-    setTagsId(filteredTags);
+    setTagsList((prev) => (prev.filter((tag) => tag !== id)))
   }
 
-  const tag = tagsId.map((id) => {
-    const tagValue = tagList ? tagList[id] : null;
-    return (
-    <li key={id}>
-      <input
-        id={id}
-        className={classes.input}
-        type={'text'}
-        name={`tagList[${id}]`}
-        defaultValue={tagValue}
-        placeholder={placeholder}
-        ref={ register() }
-      />
-      <Button value='Delete' name='delTag' func={() => delTag(id)}/>
+  const tag = tagsList.map((item) => (
+    <li key={item}
+      className={cn(classes.tagItem, { [classes.checkTag]: item === checkTag })}
+      onClick={() => delTag(item)}
+    >
+      <span>{item}</span>
     </li>
-    )
-  })
+
+  ))
 
   return (
     <div className = {classes.inputWrap}>
       <h3>Tags</h3>
-      <ul>
+      <ul className={classes.tagsList}>
         {tag}
-        <Button value='Add tag' name='addTag' func={addTag}/>
       </ul>
-
+      <input
+        className={cn(classes.input, { [classes.tagError]: tagError })}
+        type={'text'}
+        name={'tagList'}
+        value={inputValue}
+        placeholder={placeholder}
+        ref={ register() }
+        onChange={(e) => inputHandler(e)}
+      />
+      <Button value='Add tag' name='addTag' func={addTagHandler}/>
     </div>
   );
 }

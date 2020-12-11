@@ -1,3 +1,6 @@
+$errorColor:  #F5222D;
+$successColor: #52C41A;
+
 %text {
   font-family: Roboto;
   font-size: 16px;
@@ -39,10 +42,18 @@
   height: 40px;
   padding: 8px 12px;
   outline: none;
+  margin-top: 10px;
   margin-right: 18px;
 
   &:focus {
     border-color: #1890FF;
+  }
+  &.tagError {
+    border: 2px solid $errorColor;
+    &::-webkit-input-placeholder {color:$errorColor;}
+    &::-moz-placeholder          {color:$errorColor;}/* Firefox 19+ */
+    &:-moz-placeholder           {color:$errorColor;}/* Firefox 18- */
+    &:-ms-input-placeholder      {color:$errorColor;}
   }
 
   &::-webkit-input-placeholder { 
@@ -64,7 +75,37 @@
   font-family: Roboto;
   font-size: 14px;
   line-height: 22px;
-  color:#F5222D;
+  color: $errorColor;
   margin: 0;
 }
 
+.tagsList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+
+  .tagItem {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-right: 8px;
+    margin-bottom: 4px;
+    &.checkTag{
+      border-color: $successColor;
+      & span {
+        color: $successColor;
+        font-weight: 700;
+      }
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    & span {
+      padding: 4px 6px;
+    }
+  }
+  
+}

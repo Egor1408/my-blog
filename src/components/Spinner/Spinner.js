@@ -2,9 +2,9 @@ import React from 'react';
 import { Spin } from 'antd';
 import './Spinner.css';
 
-const Spinner = () => (
+const Spinner = ({ tip = null }) => (
   <div className='spinner'>
-    <Spin tip="Loading..." size='large'/>
+    <Spin tip={tip} size='large'/>
   </div>
 )
 

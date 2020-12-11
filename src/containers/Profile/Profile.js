@@ -21,6 +21,7 @@ const Profile = () => {
   const { user, updateUser } = useUser();
   const [userNameErr, setUserNameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
+  const [success, setSuccess] = useState(false)
 
   const filterUserData = (data) => {
     const obj = data.user
@@ -54,11 +55,22 @@ const Profile = () => {
             }
           })
         } else {
+          setSuccess(true)
           updateUser(request.user);
           updateSession(request.user);
         }
       })
     e.target.reset();
+  }
+
+  const inputHandler = (inputName) => {
+    setSuccess(false);
+    if (inputName === 'username') {
+      setUserNameErr(false)
+    }
+    if (inputName === 'email') {
+      setEmailErr(false)
+    }
   }
 
   if (user) {
@@ -67,12 +79,12 @@ const Profile = () => {
         <ModalWrapper title='Edit Profile'>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             {userNameErr && <p className={classes.error}>Этот username уже занят</p>}
-            <UsernameInput />
+            <UsernameInput userName={user.username} func={inputHandler}/>
             {emailErr && <p className={classes.error}>Такой email уже зарегестрирован</p>}
-            <EmailInput />
-            <PasswordInput modal={'profile'}/>
-            <AvatarInput />
-            <InputSubmit value='Save'/>
+            <EmailInput email={user.email} func={inputHandler}/>
+            <PasswordInput modal={'profile'} func={inputHandler}/>
+            <AvatarInput url={user.image} func={inputHandler}/>
+            <InputSubmit value='Save' loading={success} loadingValue='Профиль успешно изменен'/>
           </form>
         </ModalWrapper>
       </FormProvider>

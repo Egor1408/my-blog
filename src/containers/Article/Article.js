@@ -14,6 +14,7 @@ const Article = (props) => {
   const { history } = props;
   const { user } = useUser();
   const apiService = new ApiService();
+  const [del, setDel] = useState(true);
   const [article, setArticle] = useState({});
   const [isMyArticle, setIsMyArticle] = useState(false);
 
@@ -34,22 +35,27 @@ const Article = (props) => {
   useEffect(() => {
     if (user && article.author) {
       setIsMyArticle(user.username === article.author.username)
+    } else {
+      setIsMyArticle(false)
     }
   }, [user, article.author])
 
   const delArticle = (articleSlug, userToken) => {
+    setDel(false)
     apiService.deleteArticle(articleSlug, userToken)
-    history.push('/my-blog/')
+      .then(() => {
+        history.push('/my-blog/articles/')
+      })
   }
 
-  if (article && article.author) {
+  if (article && article.author && del) {
     return (
         <div className={classes.article}>
           <ArticleItemList data = {article} clsForTags={true} />
           {isMyArticle && <div className={classes.buttons}>
-            <PopUp func = {() => { delArticle(slug, user.token) }}/>
-            <Link to={`/my-blog/articles/${slug}/edit`} className={classes['edit-article']}>Edit</Link>
-          </div>}
+                            <PopUp func = {() => { delArticle(slug, user.token) }}/>
+                            <Link to={`/my-blog/articles/${slug}/edit`} className={classes['edit-article']}>Edit</Link>
+                          </div>}
           <div className={classes.articleBody}>
             <ReactMarkDown>{article.body}</ReactMarkDown>
           </div>
@@ -57,7 +63,9 @@ const Article = (props) => {
     )
   }
 
-  return <Spinner/>
+  return <div className={classes.spinWrap}>
+          <Spinner tip='Loading...'/>
+        </div>
 }
 
 export default Article;

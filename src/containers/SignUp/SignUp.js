@@ -17,14 +17,24 @@ const SignUp = (props) => {
   const apiService = new ApiService();
   const { history } = props;
   const [curPass, setCurPass] = useState('');
+  const [loading, setLoading] = useState(false);
   const [userNameErr, setUserNameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [checkboxState, useCheckboxState] = useState(false);
-  const { user } = useUser();
+  const { updateUser } = useUser();
+
   const methods = useForm();
 
-  const onSubmit = (data, e) => {
+  const initSession = (dataUser) => {
+    const session = {
+      user: dataUser,
+    };
+    sessionStorage.setItem('session', JSON.stringify(session));
+  };
+
+  const onSubmit = (data) => {
     const resData = { user: data };
+    setLoading(true);
     apiService.createNewAcc(resData)
       .then((request) => {
         if (request.errors) {
@@ -38,12 +48,14 @@ const SignUp = (props) => {
             }
           })
         } else {
-          history.push('/my-blog/sign-in')
+          updateUser(request.user);
+          initSession(request.user);
+          history.push('/my-blog/articles/')
         }
       })
-    e.target.reset({
-      errors: true,
-    });
+      .then(() => {
+        setLoading(false);
+      })
   }
   const watchPass = (pass) => {
     if (pass.password) {
@@ -54,15 +66,18 @@ const SignUp = (props) => {
     useCheckboxState((prev) => !prev);
   }
 
+  const inputHandler = (inputName) => {
+    // console.log('!')
+  }
   return (
     <FormProvider {...methods}>
       <ModalWrapper title='Create new account'>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {userNameErr && <p className={classes.error}>Этот username уже занят</p>}
-          <UsernameInput />
+          <UsernameInput func = {inputHandler}/>
           {emailErr && <p className={classes.error}>Такой email уже зарегестрирован</p>}
-          <EmailInput />
-          <PasswordInput modal={'sign-up'} watchPass={watchPass} />
+          <EmailInput func = {inputHandler}/>
+          <PasswordInput modal={'sign-up'} watchPass={watchPass} func = {inputHandler}/>
           <RepeatPassInput curPass={curPass}/>
           <Checkbox
             handleCheckbox={handleCheckbox}
@@ -73,7 +88,7 @@ const SignUp = (props) => {
     information'
           />
 
-          <InputSubmit value='Create'/>
+          <InputSubmit value='Create' loading={loading} loadingValue='Loading...' />
           <ModalLink linkUrl={'/my-blog/sign-in/'} value='Already have an account?' linkName='Sign In' />
         </form>
       </ModalWrapper>
