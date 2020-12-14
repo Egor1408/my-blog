@@ -19,6 +19,7 @@ const CreateArticle = (props) => {
   const [title, setTitle] = useState('Create new article');
   const [submitButtonTitle, setSubmitButtonTitle] = useState('Send')
   const { user } = useUser();
+
   const submitFunc = (articleData, userToken, articleSlug = null) => {
     if (articleSlug) {
       apiService.updateArticle(articleData, userToken, articleSlug)
@@ -50,8 +51,8 @@ const CreateArticle = (props) => {
     setLoading(true);
     submitFunc(resData, user.token, article.slug);
   };
-  const handleTagList = (tag) => {
-    setTagList((prev) => [...prev, tag])
+  const handleTagList = (newTagList) => {
+    setTagList(newTagList)
   }
   if (user) {
     return (
@@ -69,7 +70,7 @@ const CreateArticle = (props) => {
               <TextArea name='body' label='Text' placeholder='text' value={article.body} />
             </div>
             <div className={classes.tags}>
-              <TagsInput tagList={article.tagList} handleTagList={handleTagList}/>
+              <TagsInput articleTagsList={article.tagList} handleTagList={handleTagList}/>
             </div>
             <InputSubmit value={submitButtonTitle} loading={loading} loadingValue='Loading...'/>
           </form>
