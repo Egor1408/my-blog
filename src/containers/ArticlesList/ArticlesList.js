@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ArticleItemList from '../ArticleItemList/ArticleItemList';
-import Header from '../Header/Header';
 import Navigation from '../../components/Navigation/Navigation';
 import Spinner from '../../components/Spinner/Spinner';
 import { useUser } from '../../Context/UserContext';

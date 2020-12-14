@@ -23,8 +23,8 @@ const UsernameInput = ({ userName = null, func = null }) => {
         onChange={() => func('username')}
       />
       {errors.username?.type === 'required' && <p className={classes.validError}>Обязательное поле</p>}
-      {(errors.username?.type === 'minLength') && <p className={classes.validError}>от 3 до 20 символов</p>}
-      {(errors.username?.type === 'maxLength') && <p className={classes.validError}>от 3 до 20 символов</p>}
+      {errors.username?.type === 'minLength' && <p className={classes.validError}>от 3 до 20 символов</p>}
+      {errors.username?.type === 'maxLength' && <p className={classes.validError}>от 3 до 20 символов</p>}
 
     </div>
   );
